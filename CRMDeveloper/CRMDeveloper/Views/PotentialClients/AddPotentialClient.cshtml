@@ -1,0 +1,197 @@
+﻿@model CRMCore.Objects.ObjPotentialClient
+@using CRMCore.Enums;
+@using CRMCore.Helpers;
+@{
+    ViewData["Title"] = "Создание нового потенциального клиента";
+
+    IEnumerable<SelectListItem> statuses = null;
+    if(ViewBag.Statuses != null)
+    {
+        var statusList = (ViewBag.Statuses as List<CRMCore.Objects.ObjStatus>);
+        statuses = statusList.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Name,
+        });
+    }
+
+    IEnumerable<SelectListItem> currencyType = EnumHelper.GetLocalizedValues<CurrencyType>().Select(x => new SelectListItem()
+    {
+        Value = x.Value.ToString(),
+        Text = x.DisplayName
+    });
+
+    IEnumerable<SelectListItem> DateTypes = EnumHelper.GetLocalizedValues<DateTypes>().Select(x => new SelectListItem()
+    {
+        Value = x.Value.ToString(),
+        Text = x.DisplayName
+    });
+
+    IEnumerable<SelectListItem> SelectListManagers = null;
+    if (ViewBag.Managers != null)
+    {
+        var managers = (ViewBag.Managers as List<CRMCore.Objects.ObjUser>);
+
+        SelectListManagers = managers.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Fio
+        });
+    }
+
+    IEnumerable<SelectListItem> SelectListProjectTypes = null;
+    if (ViewBag.ProjectTypes != null)
+    {
+        var projectTypes = (ViewBag.ProjectTypes as List<CRMCore.Objects.ObjProjectType>);
+
+        SelectListProjectTypes = projectTypes.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Name
+        });
+    }
+
+    IEnumerable<SelectListItem> selectListSources = null;
+    if (ViewBag.Sources != null)
+    {
+        var sources = (ViewBag.Sources as List<CRMCore.Objects.ObjSource>);
+
+        selectListSources = sources.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Name
+        });
+    }
+
+
+
+
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Создание потенциального клиента</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li>
+                <a href="/PotentialClients">Потенциальные клиенты</a>
+            </li>
+            <li>
+                <a href="/PotentialClients/AddPotentialClient"><strong>Новый</strong></a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Создание</h5>
+                <div class="ibox-tools">
+                    <a class="btn btn-primary btn-xs">
+                        <i class="fa fa-save"></i>
+                        Сохранить
+                    </a>
+                    <a class="btn btn-primary btn-default btn-xs" href="@Url.Action("Index","PotentialClients")">
+                        Отмена
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form method="post" class="form-horizontal" asp-action="AddPotentialClient" id="EntityForm">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Название проекта</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Описание</label>
+                        <div class="col-sm-6">
+                            <textarea rows="6" class="form-control" asp-for="Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Тип проекта</label>
+                        <div class="col-sm-6">
+                            <select asp-items="SelectListProjectTypes" class="form-control" asp-for="ProjectTypeId"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Статус</label>
+                        <div class="col-sm-4">
+                            <select asp-for="StatusId" class="form-control m-b" asp-items="statuses"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label">Стоимость</label>
+                        <div class="col-sm-3 col-xs-5">
+                            @Html.EditorFor(model => model.Cost, new { @class = "form-control" })
+                            <span asp-validation-for="Cost" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-2 col-xs-4">
+                            <select asp-for="Currency" class="form-control m-b" asp-items="currencyType"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-4 control-label">Продолжительность работ</label>
+                        <div class="col-sm-3 col-xs-3">
+                            <input type="number" class="form-control" asp-for="DateCount" />
+                            <span asp-validation-for="DateCount" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-2 col-xs-5">
+                            <select asp-for="DateType" class="form-control m-b" asp-items="DateTypes"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Название компании</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" asp-for="CompanyName" value="@Model.CompanyName" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Менеджер</label>
+                        <div class="col-sm-4">
+                            <select asp-for="UserId" class="form-control m-b" asp-items="SelectListManagers">
+                                <option value="null">Никого</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Вероятность заказа</label>
+                        <div class="col-sm-2">
+                            <div class="input-group m-b">
+                                <input type="number" max="100" min="0" asp-for="Probability" class="form-control" />
+                                <span class="input-group-addon">%</span>
+                                <span asp-validation-for="Probability" class="text-danger"></span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Источник</label>
+                        <div class="col-sm-4">
+                            <select asp-for="SourceId" class="form-control m-b" asp-items="selectListSources">
+                                <option value="null">Нет</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/SaveAndReturn.js"></script>
+}

@@ -1,0 +1,95 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Comments\**" />
+    <EmbeddedResource Remove="Comments\**" />
+    <None Remove="Comments\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20180928141733_ChangeLogin.cs" />
+    <Compile Remove="Migrations\20181004081001_ChangeUser.cs" />
+    <Compile Remove="Migrations\20181004094136_Role.cs" />
+    <Compile Remove="Migrations\20181004143758_Role.cs" />
+    <Compile Remove="Migrations\20181004144524_Role.cs" />
+    <Compile Remove="Migrations\20181005143618_Role.cs" />
+    <Compile Remove="Migrations\20181005144154_Role.cs" />
+    <Compile Remove="Migrations\20181005175820_Role.cs" />
+    <Compile Remove="Migrations\20181008061825_ChanesUse.cs" />
+    <Compile Remove="Migrations\20181009143325_TXComments.cs" />
+    <Compile Remove="Migrations\20181011065512_FileData.cs" />
+    <Compile Remove="Migrations\20181012084037_PotentialClient.cs" />
+    <Compile Remove="Migrations\20181013070526_PotentialClient.cs" />
+    <Compile Remove="Migrations\20181016061646_FileData.cs" />
+    <Compile Remove="Migrations\20181016061935_PotentialClient.cs" />
+    <Compile Remove="Migrations\20181016131045_FileData.cs" />
+    <Compile Remove="Migrations\20181016131116_PotentialClient.cs" />
+    <Compile Remove="Migrations\20181016131141_Contact.cs" />
+    <Compile Remove="Migrations\20181017071944_PotentialCLient.cs" />
+    <Compile Remove="Migrations\20181017072005_Contact.cs" />
+    <Compile Remove="Migrations\20181017072032_FileData.cs" />
+    <Compile Remove="Migrations\20181017082016_FileData.cs" />
+    <Compile Remove="Migrations\20181018061843_FileData.cs" />
+    <Compile Remove="Migrations\20181018061911_Client.cs" />
+    <Compile Remove="Migrations\20181018075509_Client.cs" />
+    <Compile Remove="Migrations\20181018111019_Client.cs" />
+    <Compile Remove="Migrations\20181018125907_Client.cs" />
+    <Compile Remove="Migrations\20181104085923_PTask.cs" />
+    <Compile Remove="Migrations\20181107174314_User.cs" />
+    <Compile Remove="Migrations\20181107174530_Role.cs" />
+    <Compile Remove="Migrations\20181107174633_RoleActivity.cs" />
+    <Compile Remove="Migrations\20181107174722_Comment.cs" />
+    <Compile Remove="Migrations\20181107174832_Status.cs" />
+    <Compile Remove="Migrations\20181107174857_PClient.cs" />
+    <Compile Remove="Migrations\20181107174928_Contact.cs" />
+    <Compile Remove="Migrations\20181107175021_Client.cs" />
+    <Compile Remove="Migrations\20181107175108_ProjectType.cs" />
+    <Compile Remove="Migrations\20181107175134_Project.cs" />
+    <Compile Remove="Migrations\20181107175511_PTasks.cs" />
+    <Compile Remove="Migrations\20181107175542_Participant.cs" />
+    <Compile Remove="Migrations\20181107175610_FinanceSubType.cs" />
+    <Compile Remove="Migrations\20181107175635_Finance.cs" />
+    <Compile Remove="Migrations\20181108073927_ProjectTypeWithPClient.cs" />
+    <Compile Remove="Migrations\20181108135408_Residue.cs" />
+    <Compile Remove="Migrations\20181111192751_ParticipantTask.cs" />
+    <Compile Remove="Migrations\20181112113055_FileData.cs" />
+    <Compile Remove="Migrations\20181112131945_FileDataNew.cs" />
+    <Compile Remove="Migrations\20181113140436_IsRootStatus.cs" />
+    <Compile Remove="Migrations\20181113141301_IsRootStatus.cs" />
+    <Compile Remove="Migrations\20181113141545_Test.cs" />
+    <Compile Remove="Migrations\20181113143033_IsRootStatus.cs" />
+    <Compile Remove="Migrations\20181115115749_DefaultUser.cs" />
+    <Compile Remove="Migrations\20181116070226_DateStartWork.cs" />
+    <Compile Remove="Migrations\20181116070326_Source.cs" />
+    <Compile Remove="Migrations\20181116070845_Source.cs" />
+    <Compile Remove="Migrations\20181118145731_ContactPosition.cs" />
+    <Compile Remove="Migrations\20181228100139_CustomOption.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.7.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\10.0.1\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Filters\" />
+  </ItemGroup>
+
+</Project>

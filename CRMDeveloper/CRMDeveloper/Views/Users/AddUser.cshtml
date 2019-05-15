@@ -1,0 +1,165 @@
+﻿@model CRMCore.Objects.ObjUser
+@{
+    ViewData["Title"] = "Добавление сотрудника";
+}
+
+@{
+    IEnumerable <SelectListItem> SelectListRoles = null;
+    if(ViewBag.Roles != null)
+    {
+        var roles = (ViewBag.Roles as List<CRMCore.Objects.ObjRole>);
+        SelectListRoles = roles.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Title,
+        });
+    }
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Создание сотрудника</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li>
+                <a href="/Users">Сотрудники</a>
+            </li>
+            <li>
+                <a href="@Url.Action("AddUser","Users")"><strong>Новый</strong></a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Основные</h5>
+                <div class="ibox-tools">
+                    <a class="btn btn-primary btn-xs" >
+                        Сохранить
+                        <i class="fa fa-save"></i>
+                    </a>
+                    <a class="btn btn-primary btn-default btn-xs" href="@Url.Action("Index","Users")" >Отмена
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                   
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <form method="post" class="form-horizontal" id="EntityForm" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">ФИО</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="Fio" />
+                                    <span asp-validation-for="Fio" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Должность</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="Position" />
+                                    <span asp-validation-for="Position" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Телефон</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="Phone" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Почта</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="Email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Пароль</label>
+                                <div class="col-md-8">
+                                    <input type="password" class="form-control" asp-for="PassHash" />
+                                    <span asp-validation-for="PassHash" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Аватар</label>
+                                <div class="col-md-8">
+                                    <input asp-for="file" type="file">
+                                    <span asp-validation-for="file" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Грейд</label>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" asp-for="Grade" />
+                                    <span asp-validation-for="Grade" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Скайп</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="Skype" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Telegram</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="Telegram" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Другое</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="Other" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Роль</label>
+                                <div class="col-md-8">
+                                    <select asp-for="RoleId" class="form-control" asp-items="SelectListRoles"></select>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group" >
+                                <div class="col-lg-8 col-lg-offset-2">
+                                    <span>Участник списков</span>
+                                    <i class="fa fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Это менеджер</label>
+                                <div class="col-md-8">
+                                    <input type="checkbox" asp-for="IsManager" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/SaveAndReturn.js"></script>
+}

@@ -1,0 +1,99 @@
+﻿@model List<CRMCore.Objects.ObjPTask>
+@{
+    ViewData["Title"] = "Задачи";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Статусы</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home/Index">Главная</a>
+            </li>
+            <li>
+                <a href="/Configurations/PTasks"><strong>Задачи</strong></a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="row m-t">
+    <div class="col-sm-4">
+        <div class="btn-group">
+            <a class="btn btn-primary" href="/Configurations/AddPTask">
+                <i class="fa fa-plus-square"></i>
+                Добавить
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-6 col-sm-offset-2">
+        <form action="#" method="get" class="row">
+            <div class="col-sm-5">
+
+            </div>
+            <div class="col-sm-7 input-group ">
+                <input disabled="disabled" type="text" placeholder="Введите текст для поиска" class="form-control" value="" name="q">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary"> Поиск</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Название</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @foreach (var pTask in Model)
+                       {
+                        <tr>
+                            <td hidden="hidden" id="@pTask.Id"></td>
+                            <td>@pTask.Position</td>
+                            <td>@pTask.Name</td>
+                            <td>@pTask.Description</td>
+                            <td class="text-right">
+                                <a class="btn btn-primary btn-xs" href="@Url.Action("EditPTask","Configurations",new { id = pTask.Id })">
+                                    <i class="fa fa-pencil"></i>
+                                    Редактировать
+                                </a>
+                                <a class="btn btn-danger btn-xs">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                       }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@{ 
+    Html.RenderPartial("_DeletePTasksModal");
+}
+@section Scripts{ 
+    <script>
+        $('tr').each(function (index, element) {
+            var tr = $(this);
+            $(this).find('a i.fa-trash').click(function () {
+                let idElem = tr.find('[hidden="hidden"]').attr('id');
+                console.log(idElem);
+                $('#DeletePTasks').find('[ name="id"]').val(idElem);
+                $('#DeletePTasks').modal('show');
+
+            })
+        })
+    </script>
+}

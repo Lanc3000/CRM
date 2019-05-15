@@ -1,0 +1,89 @@
+﻿@model IEnumerable<CRMCore.Objects.ObjClientP>
+
+@using CRMCore.Enums;
+@using CRMCore.Helpers;
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Клиенты</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li class="active">
+                <a href="/Clients/Index"><strong>Клиенты</strong></a>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="row m-t">
+    <div class="col-sm-4">
+        <div class="btn-group">
+            <a class="btn btn-primary" href="@Url.Action("AddClient","Clients")">
+                <i class="fa fa-plus-square"></i>
+                Добавить
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-6 col-sm-offset-2">
+        @*<form action="/potentialgame/index" method="get" class="row">
+                <div class="col-sm-5">
+
+                </div>
+                <div class="col-sm-7 input-group ">
+                    <input type="text" placeholder="Введите текст для поиска" class="form-control" value="" name="q">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary"> Поиск</button>
+                    </span>
+                </div>
+            </form>*@
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="ibox float-e-margins">
+            @foreach (var item in Model)
+            {
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="sg-list-title-div">
+                                <a class="sg-list-title" href="@Url.Action("Details","Clients", new { id = item.Id })">
+                                    @item.CompanyName
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <a href=""><h5><b class="text-muted" data-toggle="collapse" href="#@item.Id" aria-expanded="false" aria-controls="collapseExample">Проекты <span class="badge badge-info">@item.ListProjects.Count</span></b></h5></a>
+                            <ul class="list-group collapse" id="@item.Id">
+                                @foreach (var project in item.ListProjects)
+                                {
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="text-left col-sm-6">
+                                                <a href="@Url.Action("Details", "Projects", new {id = project.Id })"><b class="text-muted"><u>@project.Title</u></b></a>
+                                                <span> (@project.DeadLine.ToShortDateString())</span>
+                                            </div>
+                                            <div class="text-right col-sm-6">
+                                                <b class="text-muted">@DecimalHelper.DoPrice(@project.Cost) @EnumHelper.DisplayName(project.Currency) </b> /
+                                                <span class="text-muted">@DecimalHelper.DoPrice(project.Residue) @EnumHelper.DisplayName(project.Currency)</span>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <b>@DecimalHelper.DoPrice(item.Credit)</b><span> @EnumHelper.DisplayName(CRMCore.Enums.CurrencyType.Rub)</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

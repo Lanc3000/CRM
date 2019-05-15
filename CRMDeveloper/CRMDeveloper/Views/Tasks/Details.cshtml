@@ -1,0 +1,71 @@
+﻿@model CRMCore.Objects.ObjTask
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Задача</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li>
+                <a href="/Tasks">Задачи</a>
+            </li>
+            <li class="active">
+                <a href="/Tasks/@Model.Id"><strong>@Model.Title</strong></a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="col-lg-8">
+            @{
+                Html.RenderPartial("_DetailsTaskInform", Model);
+            }
+        </div>
+        <div class="col-lg-4">
+            @{
+                Html.RenderPartial("_Comments", new CRMDeveloper.Models.RootModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Project });
+
+                Html.RenderPartial("_Files", new CRMDeveloper.Models.FileModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Project, RootFIleType = CRMCore.Enums.FileRootTypes.UploadFile });
+            }
+        </div>
+        <div class="col-lg-12">
+            @{ Html.RenderPartial("_Participants", new CRMDeveloper.Models.RootModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Project });}
+        </div>
+        <div class="col-lg-12">
+            @{ Html.RenderPartial("_Finances", new CRMDeveloper.Models.RootModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Project });}
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/EnumUtils.js"></script>
+    <script src="~/js/RootInformation.js"></script>
+    <script src="~/js/Comment-crm.js"></script>
+    <script src="~/js/UploadFiles.js"></script>
+    <script src="~/inspinia/js/plugins/dropzone/dropzone.js"></script>
+    <script src="~/js/Participants.js"></script>
+    <script src="~/js/Finances.js"></script>
+    <script>function ChangeSelect() {
+            var FinanceTypeVal = $('#Add-Finance [data-sg-finance="type"]').val();
+            switch (FinanceTypeVal) {
+                case "Receipt":
+                    $('#Add-Finance [data-sg-finance="subtype"]').hide();
+                    $('#Add-Finance [data-sg-finance="userFio"]').parent().parent().hide();
+                    //добавить открытие строки
+                    break;
+                case "Expence":
+                    $('#Add-Finance [data-sg-finance="subtype"]').show();
+                    $('#Add-Finance [data-sg-finance="userFio"]').parent().parent().show();
+            }
+        }
+
+        ChangeSelect();
+
+        $('#Add-Finance [data-sg-finance="type"]').change(ChangeSelect)</script>
+    <script src="~/js/plugins/bootstrap3-typeahead.min.js"></script>
+}

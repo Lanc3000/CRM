@@ -1,0 +1,74 @@
+﻿@model List<CRMCore.Objects.ObjUser>
+
+@section Styles {
+    <link href="~/css/User.css" rel="stylesheet" />
+
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Сотрудники</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home/Index">Главная</a>
+            </li>
+            <li class="active">
+                <a href="/Users"><strong>Сотрудники</strong></a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row m-t">
+    <div class="col-sm-4">
+        <div class="btn-group">
+            <a class="btn btn-primary" href="@Url.Action("AddUser","Users")">
+                <i class="fa fa-plus-square"></i>
+                Добавить
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-6 col-sm-offset-2">
+        <form method="post" class="row" asp-action="SearchUser">
+            <div class="col-sm-5">
+
+            </div>
+            <div class="col-sm-7 input-group ">
+                <input  type="text" placeholder="Введите текст для поиска" class="form-control" value="" name="SearchString">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary"> Поиск</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="ibox float-e-margins">
+
+            @foreach (var user in Model)
+            {
+                <div class="ibox-content">
+                    <div class="row text-left user-item">
+                        <div class="col-md-1 user-photo">
+
+                            <img src="/Users/Avatar/@user.Id" alt="Фото" class="img-circle" />
+                        </div>
+                        <div class="col-md-5 user-inform ">
+                            <a href="@Url.Action("Details","Users", new { id = user.Id })"><strong>@user.Fio</strong></a>
+                            <br />
+                            <small>@user.Role.Title</small>
+                        </div>
+                        <div class="col-md-4 user-contact-data ">
+                            <h5>@user.Phone</h5>
+                            <h5>@user.Email</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>

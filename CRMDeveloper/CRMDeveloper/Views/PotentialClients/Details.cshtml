@@ -1,0 +1,54 @@
+﻿@model CRMCore.Objects.ObjPotentialClient
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Потенциальный клиент</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li>
+                <a href="/PotentialClients">Потенциальные клиенты</a>
+            </li>
+            <li class="active">
+                <a href="/PotentialClients/@Model.Id"><strong>@Model.Name</strong></a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="col-lg-8">
+            @{
+                Html.RenderPartial("_DetailsPClientInformation", Model);
+            }
+
+            @{
+                Html.RenderPartial("_Contacts", new CRMDeveloper.Models.RootModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.PotentialCLient });
+            }
+        </div>
+        <div class="col-lg-4">
+            @{ Html.RenderPartial("_Comments", new CRMDeveloper.Models.RootModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.PotentialCLient });}
+        
+            @{  Html.RenderPartial("_Files", new CRMDeveloper.Models.FileModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.PotentialCLient, RootFIleType = CRMCore.Enums.FileRootTypes.UploadFile });}
+        </div>
+       
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/RootInformation.js"></script>
+    <script src="~/js/Comment-crm.js"></script>
+    <script src="~/js/Contacts.js"></script>
+    <script src="~/js/UploadFiles.js"></script>
+    <link href="~/inspinia/plugins/dropzone/basic.css" rel="stylesheet" />
+    <link href="~/inspinia/plugins/dropzone/dropzone.css" rel="stylesheet"/>
+    <script src="~/inspinia/js/plugins/dropzone/dropzone.js"></script>
+}

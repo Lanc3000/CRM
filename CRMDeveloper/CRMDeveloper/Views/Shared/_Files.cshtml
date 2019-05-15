@@ -1,0 +1,38 @@
+﻿@model CRMDeveloper.Models.FileModel
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>Файлы</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="file-div" data-sg-file="file-main" overflow-x: hidden;">
+            <input type="hidden" data-sg-file="file-rooId" value="@Model.RootId" />
+            <input type="hidden" data-sg-file="file-RootType" value="@Model.RootType" />
+            <input type="hidden" data-sg-file="file-FileRootType" value="@Model.RootFIleType" />
+            <table class="file-list feed-activity-list" data-sg-file="file-list">
+                <tr class="file-item" data-sg-file="file-item-first" hidden>
+                    <td><input type="hidden" data-sg-file="file-Id" value="" /></td>
+                    <td class="file-item-type-icon" data-sg-file="file-item-type-icon"></td>
+                    <td class="file-item-name" data-sg-file="file-item-name"></td>
+                    <td class="file-item-delete" data-sg-file="file-item-delete">
+                        <a class="btn btn-danger btn-xs">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="dropzone dropzone-me-files dz-clickable" id="dropzoneForm">
+                        <div class="dz-message">
+                            <a class="btn btn-primary btn-block">
+                                <i class="fa fa-plus-square"> Загрузить файл</i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

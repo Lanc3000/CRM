@@ -1,0 +1,166 @@
+﻿@model CRMDeveloper.Models.ConfigurationModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Настраиваемые списки</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home/Index">Главная</a>
+            </li>
+            <li>
+                <a href="/Cofigurations">Списки</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInUp">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#Sources"><i class=""></i>Источники</a></li>
+                                <li><a data-toggle="tab" href="#Task">Задачи</a></li>
+                                <li><a data-toggle="tab" href="#ProjectTypes">Типы проектов</a></li>
+                                <li><a data-toggle="tab" href="#objFinanceSubTypes">Подтипы финансов</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="Sources" class="tab-pane active">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Название</th>
+                                                <td>Описание</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var source in Model.Sources)
+                                            {
+                                                <tr>
+                                                    <td hidden id="@source.Id"></td>
+                                                    <td>@source.Position</td>
+                                                    <td>@source.Name</td>
+                                                    <td>@source.Description</td>
+                                                    <td class="text-right">
+                                                        <a class="btn btn-primary btn-xs" href="@Url.Action("EditSource", "Configurations", new { id = source.Id })">
+                                                            <i class="fa fa-pencil"></i>
+                                                            Редактировать
+                                                        </a>
+                                                        <a class="btn btn-danger btn-xs" href="@Url.Action("DeleteSource","Configurations", new { id = source.Id })">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="Task" class="tab-pane">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Название</th>
+                                                <td>Описание</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var task in Model.Tasks)
+                                            {
+                                                <tr>
+                                                    <td hidden id="@task.Id"></td>
+                                                    <td>@task.Position</td>
+                                                    <td>@task.Name</td>
+                                                    <td>@task.Description</td>
+                                                    <td class="text-right">
+                                                        <a class="btn btn-primary btn-xs" href="@Url.Action("EditPTask", "Configurations", new { id = task.Id })">
+                                                            <i class="fa fa-pencil"></i>
+                                                            Редактировать
+                                                        </a>
+                                                        <a class="btn btn-danger btn-xs" href="@Url.Action("DeletePTask","Configurations", new { id = task.Id })">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="ProjectTypes" class="tab-pane">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Название</th>
+                                                <td>Описание</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var ProjectTypes in Model.ProjectTypes)
+                                            {
+                                                <tr>
+                                                    <td hidden id="@ProjectTypes.Id"></td>
+                                                    <td>@ProjectTypes.Position</td>
+                                                    <td>@ProjectTypes.Name</td>
+                                                    <td>@ProjectTypes.Description</td>
+                                                    <td class="text-right">
+                                                        <a class="btn btn-primary btn-xs" href="@Url.Action("EditProject", "Configurations", new { id = ProjectTypes.Id })">
+                                                            <i class="fa fa-pencil"></i>
+                                                            Редактировать
+                                                        </a>
+                                                        <a class="btn btn-danger btn-xs" href="@Url.Action("DeleteProject","Configurations", new { id = ProjectTypes.Id })">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="objFinanceSubTypes" class="tab-pane">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Название</th>
+                                                <td>Описание</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var financeSubType in Model.objFinanceSubTypes)
+                                            {
+                                                <tr>
+                                                    <td hidden id="@financeSubType.Id"></td>
+                                                    <td>@financeSubType.Position</td>
+                                                    <td>@financeSubType.Name</td>
+                                                    <td>@financeSubType.Description</td>
+                                                    <td class="text-right">
+                                                        <a class="btn btn-primary btn-xs" href="@Url.Action("AddSubType", "Configurations", new { id = financeSubType.Id })">
+                                                            <i class="fa fa-pencil"></i>
+                                                            Редактировать
+                                                        </a>
+                                                        <a class="btn btn-danger btn-xs" href="@Url.Action("DeleteSubType","Configurations", new { id = financeSubType.Id })">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

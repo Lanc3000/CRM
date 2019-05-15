@@ -1,0 +1,17 @@
+﻿<div class="modal inmodal fade" id="DeletePTasks" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Подтверждение удаления</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-controller="Configurations" asp-action="DeletePTask" enctype="multipart/form-data">
+                    <input type="hidden" value="" name="id" />
+                    <button type="submit" class="btn btn-danger btn-block">Да</button>
+                    <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Нет</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

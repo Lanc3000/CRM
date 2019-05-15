@@ -1,0 +1,110 @@
+﻿@model CRMCore.Objects.ObjStatus
+@using CRMCore.Enums;
+@using CRMCore.Helpers;
+@{
+    ViewData["Title"] = "AddStatus";
+}
+@section Styles {
+    <link href="~/inspinia/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" />
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Редактирование</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Statuses","Configurations")">Статусы</a>
+            </li>
+            <li>
+                <a href="@Url.Action("EditStatus","Configurations")">@Model.Name</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="ibox-title">
+            <h5>Редактирование статуса</h5>
+            <div class="ibox-tools">
+                <a class="btn btn-primary btn-xs">
+                    Сохранить
+                    <i class="fa fa-save"></i>
+                </a>
+                <a class="btn btn-primary btn-default btn-xs" href="@Url.Action("Statuses","Configurations")">
+                    Отмена
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <form method="post" class="form-horizontal" id="EntityForm">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="IsRoot" />
+                @if (!Model.IsRoot)
+                {
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Тип статуса</label>
+                        <div class="col-md-6">
+                            <select asp-for="rootType" class="form-control m-b">
+                                <option value="1">Потенциальный клиент</option>
+                                <option value="3">Проект</option>
+                            </select>
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Название</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" asp-for="Name" value="@Model.Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Описание</label>
+                    <div class="col-md-6">
+                        <textarea class="form-control" asp-for="Description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Цвет</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" asp-for="Color" value="@Model.Color" />
+                        <span asp-validation-for="Color" class="text-danger"></span>
+                    </div>
+                </div>
+                @if (!Model.IsRoot)
+                {
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Позиция</label>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control" asp-for="Position" value="@Model.Position" />
+                            <span asp-validation-for="Position" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Скрыт</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" asp-for="IsHide" />
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/SaveAndReturn.js"></script>
+    <script src="~/inspinia/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <script>
+        $('#Color').colorpicker({});
+    </script>
+}
+

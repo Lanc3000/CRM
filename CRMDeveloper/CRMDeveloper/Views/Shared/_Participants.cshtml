@@ -1,0 +1,48 @@
+﻿@model CRMDeveloper.Models.RootModel
+<div class="ibox float-e-margins">
+    <div class="ibox-title" id="ParticipantsTitle">
+        <h5>Участники</h5>
+        <div class="ibox-tools">
+            <a class="btn btn-primary btn-xs">
+                <i class="fa fa-plus-square"> Добавить</i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="partic-div" data-sg-participant="partic-main" style="max-height: 200px; overflow-x: hidden">
+            <input type="hidden" data-sg-participant="partic-rooId" value="@Model.RootId" />
+            <input type="hidden" data-sg-participant="partic-RootType" value="@Model.RootType" />
+            <div class="partic-list feed-activity-list" data-sg-participant="partic-list">
+                <div class="partic-item" data-sg-participant="partic-item-first" hidden="hidden">
+                    <input type="hidden" data-sg-participant="partic-Id" value="" />
+                    <input type="hidden" data-sg-participant="partic-user-Id" value="" />
+                    <input type="hidden" data-sg-participant="partic-ptask-Id" value="" />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a class="participants-fio" data-sg-participant="FIO"></a>
+                        </div>
+                        <div class="col-md-5 participants-Task" data-sg-participant="Task"></div>
+                        <div class="col-md-3 text-right">
+                            <span class="participants-worksum" data-sg-participant="WorkSum"></span>
+                            <span class="participants-currency" data-sg-participant="Currency"></span>
+                            <span class="participants-residue">(Долг: <span data-sg-participant="Residue"></span>)</span>
+                            <span class="participants-workperiod">до <span data-sg-participant="WorkPeriod"></span></span>
+                        </div>
+
+                        <div class="col-md-1 text-right">
+                            <a class="btn btn-primary btn-xs">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a class="btn btn-danger btn-xs">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    Html.RenderPartial("_ParticipantsAddModal");
+}

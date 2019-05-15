@@ -1,0 +1,56 @@
+﻿@model CRMDeveloper.Models.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Вход</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/inspinia/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="~/inspinia/inspinia.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+</head>
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <h3 class="logo-name text-center">SG</h3>
+            <h3>Добро пожаловать</h3>
+            <p>Войдите, чтобы начать работу.</p>
+            <p class="text-center alert-danger"></p>
+            <form class="m-t" role="form" action="Index" method="POST">
+                @Html.AntiForgeryToken()
+                <div class="validation" asp-validation-summary="ModelOnly"></div>
+                <div class="form-group">
+                    @Html.TextBoxFor(u => u.Email, new { @class = "form-control", @placeholder = "Email", @type = "email", @required = "" })
+                    <span class="help-block m-b-none text-danger">@Html.ValidationMessageFor(m => m.Email)</span>
+
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(u => u.Password, new { @class = "form-control", @placeholder = "Пароль", @required = "" })
+                    <span class="help-block m-b-none text-danger">@Html.ValidationMessageFor(m => m.Password)</span>
+
+                </div>
+                <div class="form-group">
+                    @Html.CheckBoxFor(u => u.IsPersistent)
+                    <label> Запомни меня</label>
+                    <span asp-validation-for="IsPersistent" />
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b"> <i class="fa fa-sign-in"></i> Войти </button>
+
+
+                <a href="#"><small>Забыли пароль</small></a>
+            </form>
+            <p class="m-t"> <small>SevenGroup &copy; 2018</small> </p>
+        </div>
+
+    </div>
+</body>
+</html>

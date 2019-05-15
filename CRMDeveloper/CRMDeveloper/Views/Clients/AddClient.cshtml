@@ -1,0 +1,120 @@
+﻿@model CRMCore.Objects.ObjClient
+@using CRMCore.Enums;
+@using CRMCore.Helpers;
+@{
+    ViewData["Title"] = "Создание нового клиента";
+
+    var managers = (ViewBag.Managers as List<CRMCore.Objects.ObjUser>);
+    IEnumerable<SelectListItem> SelectListManagers = managers.Select(x => new SelectListItem()
+    {
+        Value = x.Id.ToString(),
+        Text = x.Fio
+    });
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Создание клиента</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li>
+                <a href="/Clients"> Клиенты</a>
+            </li>
+            <li>
+                <a href="/Clients/AddClient"><strong>Новый</strong></a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Создание</h5>
+                <div class="ibox-tools">
+                    <a class="btn btn-primary btn-xs">
+                        Сохранить
+                        <i class="fa fa-save"></i>
+                    </a>
+                    <a class="btn btn-primary btn-default btn-xs" href="@Url.Action("Index","Clients")">
+                        Отмена
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form method="post" class="form-horizontal" id="EntityForm">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" value="@Model.UserId" asp-for="UserId" />
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Название компании</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" asp-for="CompanyName" />
+                            <span asp-validation-for="CompanyName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Описание</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" asp-for="Description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="col-md-2 control-label">Менеджер</label>
+                        <div class="col-md-6">
+                            <select asp-for="UserId" class="form-control m-b" asp-items="SelectListManagers">
+                                <option value="null">Никого</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <span>Банковские реквизиты</span>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label class="col-md-2 control-label">БИК</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" asp-for="BIK" />
+                        </div>
+
+                        <label class="col-md-2 control-label">КорСчет</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" asp-for="CorrAccount" />
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label class="col-md-2 control-label">Расчетный счет</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" asp-for="PaymentAccount" />
+                        </div>
+
+                        <label class="col-md-2 control-label">Имя банка</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" asp-for="BankName" />
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/SaveAndReturn.js"></script>
+}
+
+

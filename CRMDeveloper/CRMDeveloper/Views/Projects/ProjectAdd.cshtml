@@ -1,0 +1,168 @@
+﻿@model CRMCore.Objects.ObjProject
+@using CRMCore.Enums;
+@using CRMCore.Helpers;
+@{
+    ViewData["Title"] = "ProjectAdd";
+
+    IEnumerable<SelectListItem> statuses = null;
+    if (ViewBag.Statuses != null)
+    {
+        var statusList = (ViewBag.Statuses as List<CRMCore.Objects.ObjStatus>);
+        statuses = statusList.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Name,
+        });
+    }
+
+    IEnumerable<SelectListItem> Currencys = EnumHelper.GetLocalizedValues<CurrencyType>().Select(x => new SelectListItem()
+    {
+        Value = x.Value.ToString(),
+        Text = x.DisplayName
+    });
+
+    IEnumerable<SelectListItem> DateTypes = EnumHelper.GetLocalizedValues<DateTypes>().Select(x => new SelectListItem()
+    {
+        Value = x.Value.ToString(),
+        Text = x.DisplayName
+    });
+
+    IEnumerable<SelectListItem> ProjectTypes = null;
+    if (ViewBag.ProjectTypes != null)
+    {
+        var projectsTypes = (ViewBag.ProjectTypes as List<CRMCore.Objects.ObjProjectType>);
+
+        ProjectTypes = projectsTypes.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Name
+        });
+    }
+
+    IEnumerable<SelectListItem> SelectListManagers = null;
+    if (ViewBag.Managers != null)
+    {
+        var managers = (ViewBag.Managers as List<CRMCore.Objects.ObjUser>);
+        SelectListManagers = managers.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Fio
+        });
+    }
+
+    IEnumerable<SelectListItem> SelectListClients = null;
+    if (ViewBag.Clients != null)
+    {
+        var ClientList = (ViewBag.Clients as List<CRMCore.Objects.ObjClient>);
+        SelectListClients = ClientList.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.CompanyName,
+        });
+    }
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Создание проекта</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li>
+                <a href="/Projects">Проекты</a>
+            </li>
+            <li>
+                <a href="/Projects/ProjectAdd"><strong>Новый проект</strong></a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Создание</h5>
+                <div class="ibox-tools">
+                    <a class="btn btn-primary btn-xs">
+                        Сохранить
+                        <i class="fa fa-save"></i>
+                    </a>
+                    <a class="btn btn-primary btn-default btn-xs" href="@Url.Action("Index","Projects")">
+                        Отмена
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form method="post" class="form-horizontal" id="EntityForm">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="RootType" value="2" />
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Клиент</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" asp-for="RootId" asp-items="SelectListClients"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Название</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" asp-for="Title" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 col-xs-6 control-label">Тип проекта</label>
+                        <div class="col-sm-5 col-xs-6">
+                            <select asp-for="ProjectTypeId" class="form-control m-b" asp-items="ProjectTypes"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Описание</label>
+                        <div class="col-lg-9">
+                            <textarea class="form-control" asp-for="Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">Статус</label>
+                        <div class="col-xs-3">
+                            <select asp-for="StatusId" class="form-control m-b" asp-items="statuses"></select>
+                        </div>
+                        <label class="col-xs-3 control-label">Завершен на</label>
+                        <div class="col-xs-2 input-group m-b">
+                            <input type="number" class="form-control" asp-for="CompeteProcent" />
+                            <span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 col-xs-2 control-label">Сумма</label>
+                        <div class="col-sm-3 col-xs-5">
+                            @Html.TextBoxFor(Model => Model.Cost, new { @class = "form-control", })
+                        </div>
+                        <div class="col-sm-3 col-xs-5">
+                            <select asp-for="Currency" class="form-control m-b" asp-items="Currencys"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 col-xs-6 control-label">Дата выполнения</label>
+                        <div class="col-sm-5 col-xs-6">
+                            <input type="date" class="form-control" asp-for="DeadLine" />
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 col-xs-6 control-label">Менеджер</label>
+                        <div class="col-sm-5 col-xs-6">
+                            <select asp-for="UserId" class="form-control m-b" asp-items="SelectListManagers">
+                                <option value="null">Никого</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/SaveAndReturn.js"></script>
+}

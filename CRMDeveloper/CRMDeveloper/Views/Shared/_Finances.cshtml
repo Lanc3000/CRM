@@ -1,0 +1,50 @@
+﻿@model CRMDeveloper.Models.RootModel
+<div class="ibox float-e-margins">
+    <div class="ibox-title" id="FinanceTitle">
+        <h5>Финансы</h5>
+        <div class="ibox-tools">
+            <a class="btn btn-primary btn-xs">
+                <i class="fa fa-plus-square"></i> Добавить
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="finance-div" data-sg-finance="finance-main" style="max-height: 200px; overflow-x: hidden;">
+            <input type="hidden" data-sg-finance="finance-rootId" value="@Model.RootId" />
+            <input type="hidden" data-sg-finance="finance-RootType" value="@Model.RootType" />
+            <div class="finance-list feed-activity-list" data-sg-finance="finance-list">
+                <div class="finance-item" data-sg-finance="finance-item-first" hidden="hidden">
+                    <input type="hidden" data-sg-finance="Id" value="" />
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="sg-list-title-div">
+                                <span class="label" data-sg-finance="type"></span>
+                                <a class="sg-list-title" href="" data-sg-finance="projectName"></a>
+                                <div class="sg-list-title-descr">
+                                    <small>Куда : </small> <span data-sg-finance="place"></span>
+                                </div>
+                                <div class="sg-list-title-descr" data-sg-finance="user" hidden>
+                                    <small>Кому: </small> <a href="" data-sg-finance="userName"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <b data-sg-finance="cost"></b> <span data-sg-finance="currency"></span> /
+                            <span data-sg-finance="date"></span>
+                        </div>
+                        <div class="col-md-1">
+                            <a class="btn btn-danger btn-xs">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <hr class="h6" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    Html.RenderPartial("_FinancesAddModal");
+}

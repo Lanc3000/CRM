@@ -1,0 +1,32 @@
+stages:
+  - build
+  - deploy
+  
+build:
+  stage: build
+  script:
+    - cd ./CRMDeveloper/
+    - dotnet build -c Release
+  tags: 
+    - build
+  only:
+    - master
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - update.ps1
+deploy:
+  stage: deploy
+  script:
+    - powershell.exe .\update.ps1
+  tags:
+    - deploy
+  only:
+    - master
+  dependencies:
+    - build
+  when: manual
+
+
+
+ 

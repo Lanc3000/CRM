@@ -1,0 +1,152 @@
+﻿@model CRMCore.Objects.PotentialClientsModel
+@using CRMCore.Helpers;
+@{
+    ViewData["Title"] = "Потенциальные клиенты";
+
+    IEnumerable<SelectListItem> Selectstatuses = Model.PStatuses.Select(x => new SelectListItem()
+    {
+        Value = x.Id.ToString(),
+        Text = x.Name,
+    });
+
+    IEnumerable<SelectListItem> selectManagers = Model.userList.Select(x => new SelectListItem()
+    {
+        Value = x.Id.ToString(),
+        Text = x.Fio,
+    });
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Потенциальные клиенты</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li class="active">
+                <a href="/PotentialClients"><strong>Потенциальные клиенты</strong></a>
+            </li>
+        </ol>
+    </div>
+</div>
+<form>
+    <div class="row m-t">
+        <div class="col-sm-4 col-md-6 m-b">
+            <div class="btn-group">
+                <a class="btn btn-primary" href="@Url.Action("AddPotentialClient","PotentialClients")">
+                    <i class="fa fa-plus-square"></i>
+                    Добавить
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-6 m-b">
+            <div class="input-group col-sm-12">
+                <span class="input-group-btn">
+                    <a class="btn btn-info" data-toggle="collapse" href="#filters" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="fa fa-filter"></i>
+                        <span class="text-h-sm">Фильтры</span>
+                    </a>
+                </span>
+                <input type="text" class="form-control" asp-for="q" />
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa fa-search"></i>
+                        <span class="text-h-sm">Поиск</span>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="clearfix">
+        </div>
+        <div class="col-sm-12">
+            <div class="ibox collapse" id="filters">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="form-group col-lg-3 col-md-3 col-sm-6">
+                            <label class="control-label" for="statuses">Статусы</label>
+                            <div class="">
+                                <select class="listbox form-control" multiple asp-for="selectedStatuses" asp-items="Selectstatuses" title="Статусы"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-3 col-sm-6">
+                            <label class="control-label">Менеджеры</label>
+                            <div class="">
+                                <select class="listbox form-control" multiple asp-for="selectedManagers" asp-items="selectManagers"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="ibox float-e-margins">
+            @foreach (var pClient in Model.Pclients)
+            {
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="sg-list-title-div">
+                                <span class="label label-primary" style="background-color: @pClient.StatusColor"> @pClient.StatusName</span>
+                                <a class="sg-list-title" href="@Url.Action("Details","PotentialClients", new { id = pClient.Id })">
+                                    @pClient.Name
+                                </a>
+                            </div>
+                            <div class="sg-list-title-descr">
+                                <small>Название компании:</small> @pClient.CompanyName
+                            </div>
+                            <div class="sg-list-title-descr">
+                                <small>Менеджер:</small>
+                                @if (pClient.UserId == null)
+                                {
+                                    <span> Отсутствует</span>
+                                }
+                                else
+                                {
+                                    <span> @pClient.Manager.Fio</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-sm-3 text-right">
+                            <b>@DecimalHelper.DoPrice(pClient.Cost)</b> <span>@EnumHelper.DisplayName(pClient.Currency)</span> /
+                            <b>@pClient.DateCount</b>
+                            <span>@EnumHelper.DisplayName(pClient.DateType)</span>
+                            <br />
+                            <small>Вероятность:</small> @pClient.Probability %
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
+    <script>
+        $('.listbox').multiselect({
+            allSelectedText : "Все",
+            selectAllValue :-1,
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            nonSelectedText: "Выберите значение",
+            buttonClass: "btn btn-outline btn-default",
+            selectAllText : "Выбрать все",
+        });
+        $('.listbox').hide();
+
+        var filters = $('#filters');
+        var btn_groups = filters.find('.multiselect-native-select>.btn-group');
+        btn_groups.addClass('btn-block');
+        btn_groups.find('button.multiselect').addClass('btn-block');
+
+
+        var multiselects = $('#filters ');
+
+    </script>
+
+}
+

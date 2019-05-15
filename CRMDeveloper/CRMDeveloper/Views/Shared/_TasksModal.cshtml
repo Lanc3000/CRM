@@ -1,0 +1,106 @@
+﻿@using CRMCore.Enums;
+@using CRMCore.Helpers;
+@{
+    IEnumerable<SelectListItem> currencyType = EnumHelper.GetLocalizedValues<CurrencyType>().Select(x => new SelectListItem()
+    {
+        Value = x.Value.ToString(),
+        Text = x.DisplayName
+    });
+
+    IEnumerable<SelectListItem> SelectListTypes = null;
+    if (ViewBag.TaskTypes != null)
+    {
+        var taskTypes = (ViewBag.TaskTypes as List<CRMCore.Objects.ObjTaskType>);
+        SelectListTypes = taskTypes.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Name,
+        });
+    }
+    IEnumerable<SelectListItem> statuses = null;
+    if (ViewBag.Statuses != null)
+    {
+        var statusList = (ViewBag.Statuses as List<CRMCore.Objects.ObjStatus>);
+        statuses = statusList.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Name,
+        });
+    }
+
+
+    IEnumerable<SelectListItem> SelectListManagers = null;
+    if (ViewBag.Managers != null)
+    {
+        var managers = (ViewBag.Managers as List<CRMCore.Objects.ObjUser>);
+        SelectListManagers = managers.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Fio
+        });
+    }
+}
+<div class="modal inmodal fade" id="Add-task" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Добавление задачи</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <input type="hidden" value="" data-sg-project="Id" />
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Название</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" data-sg-project="Title" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 col-sm-2 control-label">Стоимость</label>
+                        <div class="col-xs-5">
+                            <input type="number" class="form-control" data-sg-project="Cost" />
+                        </div>
+                        <div class="col-xs-5 col-sm-4">
+                            <select class="form-control" data-sg-project="Currency" asp-items="currencyType"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2">Описание</label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" data-sg-project="Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Статус</label>
+                        <div class="col-sm-8 col-lg-6">
+                            <select class="form-control m-b" data-sg-participant="Status" asp-items="statuses"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2">Сроки</label>
+                        <div class="col-sm-8 col-lg-6">
+                            <input type="date" class="form-control" data-sg-project="DeadLine" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2">Тип задачи</label>
+                        <div class="col-lg-5">
+                            <select class="form-control" data-sg-project="ProjectType" asp-items="SelectListTypes"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2">Менеджер</label>
+                        <div class="col-lg-5">
+                            <select class="form-control" data-sg-project="Manager" asp-items="SelectListManagers"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" id="save-project">Сохранить</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

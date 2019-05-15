@@ -1,0 +1,54 @@
+﻿@model CRMDeveloper.Models.RootModel
+<div class="ibox float-e-margins">
+    <div class="ibox-title" id="ContactTitle">
+        <h5>Контакты</h5>
+        <div class="ibox-tools">
+            <a class="btn btn-primary btn-xs">
+                <i class="fa fa-plus-square"> Добавить</i>
+            </a>
+        </div>
+    </div>
+
+    <div class="ibox-content">
+        <div class="contact-div" data-sg-contact="contact-main" style="max-height: 200px; overflow-x: hidden;">
+            <input type="hidden" data-sg-contact="contact-rooId" value="@Model.RootId" />
+            <input type="hidden" data-sg-contact="contact-RootType" value="@Model.RootType" />
+            <div class="contact-list feed-activity-list" data-sg-contact="contact-list">
+                <div class="contact-item" data-sg-contact="contact-item-first" hidden="hidden">
+                    <input type="hidden" data-sg-contact="contact-Id" value="" />
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <b class="text-muted" data-sg-contact="Fio"></b>&nbsp; <small data-sg-contact="Position"></small><br />
+                            <span data-sg-contact="Phone" hidden>
+                                <i class="fa fa-phone"></i>
+                                <span data-sg-contact="Phone-input"></span>
+                            </span>
+                            &nbsp;
+                            <span data-sg-contact="Email" hidden>
+                                <i class="fa fa-envelope"></i>
+                                <span data-sg-contact="Email-input"></span>
+                            </span>
+                            <br />
+                            <span data-sg-contact="Other" hidden>
+                                <i class="fa fa-files-o"></i>
+                                <i data-sg-contact="Other-input"></i>
+                            </span>
+
+                        </div>
+                        <div class="col-sm-1">
+                            <a class="btn btn-primary btn-xs">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a class="btn btn-danger btn-xs">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <hr class="h6" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{ Html.RenderPartial("_ContactsModal");}

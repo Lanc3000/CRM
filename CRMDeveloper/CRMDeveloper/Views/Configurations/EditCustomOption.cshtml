@@ -1,0 +1,90 @@
+﻿@model CRMCore.Objects.EditCustomOption
+@{
+    if (Model.Id == 0)
+    {
+        ViewData["Title"] = "Создание элемента";
+    }
+    else
+    {
+        ViewData["Title"] = "Редактирование элемента";
+    }
+
+
+    IEnumerable<SelectListItem> types = CRMCore.Helpers.EnumHelper.GetLocalizedValues<CRMCore.Enums.CustomOptionType>().Select(x => new SelectListItem()
+    {
+        Value = x.Value.ToString(),
+        Text = x.DisplayName
+    });
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>@ViewData["Title"]</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li>
+                <a href="@Url.Action("CustomOptions","Configurations")">Типы проектов</a>
+            </li>
+            <li>
+                <a href=""><strong>@ViewBag.Title</strong></a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="ibox float-e-margins">
+            <form method="post" id="EntityForm" class="form-horizontal">
+                <div class="ibox-title">
+                    <h5>@ViewBag.Title</h5>
+                    <div class="ibox-tools">
+                        <button class="btn btn-primary btn-xs" type="submit">
+                            <i class="fa fa-save"></i> Сохранить
+                        </button>
+                        <a class="btn btn-primary btn-default btn-xs" href="@Url.Action("CustomOptions","Configurations")">
+                            <i class="fa fa-chevron-right"></i> Отмена
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+
+                        @Html.HiddenFor(model => model.Id)
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Название</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" asp-for="Name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Тип</label>
+                            <div class="col-md-6">
+                                <select asp-for="Type" asp-items="types" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Описание</label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" asp-for="Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Позиция</label>
+                            <div class="col-md-6">
+                                <input type="number" class="form-control" asp-for="Position" min="0" max="100" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

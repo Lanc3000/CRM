@@ -1,0 +1,125 @@
+﻿@using CRMCore.Enums;
+@using CRMCore.Objects;
+@using CRMCore.Helpers;
+
+@{
+    IEnumerable<SelectListItem> selectListUsers = null;
+
+    @if (ViewBag.Users != null)
+    {
+        var users = (ViewBag.Users as List<CRMCore.Objects.ObjUser>);
+        selectListUsers = users.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Fio,
+        });
+    }
+
+    IEnumerable<SelectListItem> selectListSubTypes = null;
+
+    if (ViewBag.Subtypes != null)
+    {
+        var subtypes = (ViewBag.Subtypes as List<CRMCore.Objects.ObjFinanceSubType>);
+        selectListSubTypes = subtypes.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Name,
+        });
+    }
+
+    IEnumerable<SelectListItem> selectListProjects = null;
+
+    if (ViewBag.Projects != null)
+    {
+        var projects = (ViewBag.Projects as List<ObjProject>);
+        selectListProjects = projects.Select(x => new SelectListItem()
+        {
+            Value = x.Id.ToString(),
+            Text = x.Title,
+        });
+
+    }
+
+    IEnumerable<SelectListItem> selectListTypes = EnumHelper.GetLocalizedValues<FinanceTypes>().Select(x => new SelectListItem()
+    {
+        Text = x.DisplayName,
+        Value = x.Value.ToString(),
+    });
+
+    IEnumerable<SelectListItem> selectListCurrency = EnumHelper.GetLocalizedValues<CurrencyType>().Select(x => new SelectListItem()
+    {
+        Text = x.DisplayName,
+        Value = x.Value.ToString(),
+    });
+
+    IEnumerable<SelectListItem> selectListPlaces = EnumHelper.GetLocalizedValues<FinancePlaceTypes>().Select(x => new SelectListItem()
+    {
+        Text = x.DisplayName,
+        Value = x.Value.ToString(),
+    });
+}
+<div class="modal inmodal fade" id="Add-Finance" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <siv  class="form-horizontal">
+                    <input type="hidden" value="" data-sg-finance="Id" />
+                    <input type="hidden" value="" data-sg-finance="RootId" />
+                    <input type="hidden" value="" data-sg-finance="RootType" />
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Тип</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" data-sg-finance="type" asp-items="selectListTypes"></select>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control" data-sg-finance="subtype" asp-items="selectListSubTypes">
+                                <option value="null">Нет</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Проект</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" data-sg-finance="project" asp-items="selectListProjects"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Дата</label>
+                        <div class="col-sm-4">
+                            <input type="date" class="form-control" data-sg-finance="date" />
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control" data-sg-finance="place" asp-items="selectListPlaces"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Сумма</label>
+                        <div class="col-sm-4">
+                            <input type="number" data-sg-finance="cost" class="form-control" />
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control" data-sg-finance="currency" asp-items="selectListCurrency"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2">ФИО Сотрудника</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" data-sg-finance="userFio" asp-items="selectListUsers">
+                                <option value="null">Нет</option>
+                            </select>
+                        </div>
+                    </div>
+                </siv>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" id="save-finance">Сохранить</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+

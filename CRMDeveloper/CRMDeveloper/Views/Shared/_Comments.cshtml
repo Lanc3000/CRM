@@ -1,0 +1,53 @@
+﻿@model CRMDeveloper.Models.RootModel
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>Коментарии</h5>
+    </div>
+
+    <div class="ibox-content">
+        <div class="comment-div" data-seven-comment="comment-main">
+            <input type="hidden" data-seven-comment="comment-rootId" value="@Model.RootId" />
+            <input type="hidden" data-seven-comment="comment-RootType" value="@Model.RootType" />
+
+            <div class="comment-list feed-activity-list" data-seven-comment="comment-list">
+                <input type="hidden" data-seven-comment="comment-lastId" value="0" />
+
+                <div class="feed-element comment-item" data-seven-comment="comment-item-first" hidden="hidden">
+                    <a href="#" class="pull-left">
+                        <img alt="image" class="img-circle" src="~/images/user.jpg" data-seven-comment="comment-item-img">
+                    </a>
+                    <div class="media-body ">
+                        <small class="pull-right" data-seven-comment="comment-item-date">Date</small>
+                        <strong data-seven-comment="comment-item-user">UserName</strong>
+                        <div class="well" data-seven-comment="comment-item-text">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                            Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                        </div>
+                        <div data-seven-comment="comment-item-file"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="comment-new" data-seven-comment="comment-new-form">
+
+                <h4>Новый коментарий</h4>
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <textarea class="comment-text form-control" data-seven-comment="comment-new-form-text"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary btn-block" type="button" data-seven-comment="comment-new-form-btn"><i class="fa fa-plus-square"></i> Добавить коментарий</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

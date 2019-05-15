@@ -1,0 +1,109 @@
+﻿@model CRMCore.Objects.ObjRoleEdit
+
+@using CRMCore.Objects;
+@using CRMCore.Helpers;
+@{
+    ViewData["Title"] = "Создание новой роли";
+
+    var activities = ActivityHelper.GetActivities();
+    var key = 0;
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Создание новой роли</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">Главная</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Roles","Configurations")">Роли</a>
+            </li>
+            <li>
+                <a href=""><strong>Новая</strong></a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Создание</h5>
+                <div class="ibox-tools">
+                    <a class="btn btn-primary btn-xs">
+                        <i class="fa fa-save"></i>
+                        Сохранить
+                    </a>
+                    <a class="btn btn-primary btn-default btn-xs " href="@Url.Action("Roles","Configurations")">
+                        <i class="fa fa-chevron-right"></i>
+                        Отмена
+                    </a>
+
+                </div>
+            </div>
+            <div class="ibox-content">
+              
+                <form method="post" asp-action="NewRole" id="EntityForm" class="">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Название</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" asp-for="Title" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Имя для отображения</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" asp-for="Name" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="row">
+                        @for (var index = 0; index < activities.Count; index++)
+                        {
+                            var activity = activities[index];
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <p>
+                                        @activity.Title
+                                    </p>
+                                    @for (var i = 0; i < activity.Permisioins.Count; i++)
+                                    {
+                                        var permission = activity.Permisioins[i];
+                                        <div class="checkbox">
+                                            <input type="hidden" name="SelectedActivities[@key].Name" value="@permission.Key" />
+                                            <label>
+                                                <input type="checkbox" name="SelectedActivities[@key].Checked" value="true" />
+                                                <i>@permission.Title</i>
+                                            </label>
+                                        </div>
+                                        key++;
+                                    }
+
+                                </div>
+                            </div>
+
+                        }
+                        <p></p>
+                    </div>
+                </form>
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/SaveAndReturn.js"></script>
+}
