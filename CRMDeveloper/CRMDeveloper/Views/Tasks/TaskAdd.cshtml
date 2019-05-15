@@ -50,14 +50,14 @@
         });
     }
 
-    IEnumerable<SelectListItem> SelectListClients = null;
-    if (ViewBag.Clients != null)
+    IEnumerable<SelectListItem> SelectListUsers = null;
+    if (ViewBag.Users != null)
     {
-        var ClientList = (ViewBag.Clients as List<CRMCore.Objects.ObjClient>);
-        SelectListClients = ClientList.Select(x => new SelectListItem()
+        var UserList = (ViewBag.Users as List<CRMCore.Objects.ObjUser>);
+        SelectListUsers = UserList.Select(x => new SelectListItem()
         {
             Value = x.Id.ToString(),
-            Text = x.CompanyName,
+            Text = x.Fio,
         });
     }
 }
@@ -99,9 +99,9 @@
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="RootType" value="2" />
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Клиент</label>
+                        <label class="col-sm-3 control-label">Исполнитель</label>
                         <div class="col-sm-9">
-                            <select class="form-control" asp-for="RootId" asp-items="SelectListClients"></select>
+                            <select class="form-control" asp-for="RootId" asp-items="SelectListUsers"></select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 col-xs-6 control-label">Тип проекта</label>
+                        <label class="col-sm-3 col-xs-6 control-label">Тип задачи</label>
                         <div class="col-sm-5 col-xs-6">
                             <select asp-for="TaskTypeId" class="form-control m-b" asp-items="TaskTypes"></select>
                         </div>
@@ -132,30 +132,14 @@
                             <input type="number" class="form-control" asp-for="CompeteProcent" />
                             <span class="input-group-addon">%</span>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 col-xs-2 control-label">Сумма</label>
-                        <div class="col-sm-3 col-xs-5">
-                            @Html.TextBoxFor(Model => Model.Cost, new { @class = "form-control", })
-                        </div>
-                        <div class="col-sm-3 col-xs-5">
-                            <select asp-for="Currency" class="form-control m-b" asp-items="Currencys"></select>
-                        </div>
-                    </div>
+                    </div>                 
                     <div class="form-group">
                         <label class="col-sm-3 col-xs-6 control-label">Дата выполнения</label>
                         <div class="col-sm-5 col-xs-6">
                             <input type="date" class="form-control" asp-for="DeadLine" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 col-xs-6 control-label">Менеджер</label>
-                        <div class="col-sm-5 col-xs-6">
-                            <select asp-for="UserId" class="form-control m-b" asp-items="SelectListManagers">
-                                <option value="null">Никого</option>
-                            </select>
-                        </div>
-                    </div>
+                    
                 </form>
             </div>
         </div>

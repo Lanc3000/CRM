@@ -54,7 +54,7 @@ namespace CRMDeveloper.Controllers
             ViewBag.Managers = _userService.GetManagers();
             ViewBag.Users = _userService.GetAllUsers();
             ViewBag.Subtypes = _financeService.GetFSubTypes();
-            ViewBag.Statuses = _statusService.GetStatusesByRootType(RootTypes.Project);
+            ViewBag.Statuses = _statusService.GetStatusesByRootType(RootTypes.Task);
             ViewBag.Tasks = _taskService.GetTaskList();
             ViewBag.TaskTypes = _taskService.GetTaskTypes();
 
@@ -65,7 +65,7 @@ namespace CRMDeveloper.Controllers
         [ActivityAuth(ObjActivities.TaskEdit)]
         public IActionResult TaskAdd()
         {
-            ViewBag.Statuses = _statusService.GetStatusesByRootType(RootTypes.Project);
+            ViewBag.Statuses = _statusService.GetStatusesByRootType(RootTypes.Task);
             ViewBag.ProjectTypes = _taskService.GetTaskTypes();
             ViewBag.Managers = _userService.GetManagers();
             ViewBag.Clients = _clientService.GetListClientP();
@@ -91,7 +91,7 @@ namespace CRMDeveloper.Controllers
             if (result.Success)
                 return RedirectToActionOk("Details", "Tasks", new { id = result.Id }, "Задача добавлена");
 
-            return RedirectToActionError("Details", "Ошибка редактирования пзадачи");
+            return RedirectToActionError("Details", "Ошибка редактирования задачи");
         }
 
         #region Modul
