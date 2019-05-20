@@ -135,20 +135,9 @@
                                 }
                             </ul>
                         </div>
-                        <div class="col-md-1 text-right">
-                            <b>@DecimalHelper.DoPrice(task.Cost) @EnumHelper.DisplayName(task.Currency)</b>
-                        </div>
                     </div>
                 </div>
             }
-            <div class="ibox-content">
-                <div class="row">
-                    <div class="col-md-12 text-right">
-                        <small style="margin-right:15px;">Стоимость задачи):</small>
-                        <b class="no-margins">@(DecimalHelper.DoPrice(Model.Tasks.Sum(u => u.Cost))) Руб.</b>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

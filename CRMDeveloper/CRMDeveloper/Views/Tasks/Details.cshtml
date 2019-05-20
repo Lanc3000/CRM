@@ -29,17 +29,15 @@
         </div>
         <div class="col-lg-4">
             @{
-                Html.RenderPartial("_Comments", new CRMDeveloper.Models.RootModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Project });
+                Html.RenderPartial("_Comments", new CRMDeveloper.Models.RootModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Task });
 
-                Html.RenderPartial("_Files", new CRMDeveloper.Models.FileModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Project, RootFIleType = CRMCore.Enums.FileRootTypes.UploadFile });
+                Html.RenderPartial("_Files", new CRMDeveloper.Models.FileModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Task, RootFIleType = CRMCore.Enums.FileRootTypes.UploadFile });
             }
         </div>
         <div class="col-lg-12">
-            @{ Html.RenderPartial("_Participants", new CRMDeveloper.Models.RootModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Project });}
+            @{ Html.RenderPartial("_Participants", new CRMDeveloper.Models.RootModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Task });}
         </div>
-        <div class="col-lg-12">
-            @{ Html.RenderPartial("_Finances", new CRMDeveloper.Models.RootModel { RootId = Model.Id, RootType = CRMCore.Enums.RootTypes.Project });}
-        </div>
+
     </div>
 </div>
 @section Scripts {

@@ -56,15 +56,7 @@
                             <input type="text" class="form-control" data-sg-project="Title" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 col-sm-2 control-label">Стоимость</label>
-                        <div class="col-xs-5">
-                            <input type="number" class="form-control" data-sg-project="Cost" />
-                        </div>
-                        <div class="col-xs-5 col-sm-4">
-                            <select class="form-control" data-sg-project="Currency" asp-items="currencyType"></select>
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
                         <label class="col-lg-2">Описание</label>
                         <div class="col-lg-10">
@@ -86,7 +78,7 @@
                     <div class="form-group">
                         <label class="col-lg-2">Тип задачи</label>
                         <div class="col-lg-5">
-                            <select class="form-control" data-sg-project="ProjectType" asp-items="SelectListTypes"></select>
+                            <select class="form-control" data-sg-project="TaskType" asp-items="SelectListTypes"></select>
                         </div>
                     </div>                
                 </div>

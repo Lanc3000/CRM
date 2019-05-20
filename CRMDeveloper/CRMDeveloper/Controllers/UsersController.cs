@@ -19,14 +19,17 @@ namespace CRMDeveloper.Controllers
         private IUserService _userService { get; set; }
         IFinanceService _financeService { get; set; }
         IProjectService _projectService { get; set; }
+        ITaskService _taskService { get; set; }
 
         public UsersController(IUserService userService,
             IFinanceService financeService,
-            IProjectService projectService)
+            IProjectService projectService,
+            ITaskService taskService)
         {
             _userService = userService;
             _financeService = financeService;
             _projectService = projectService;
+            _taskService = taskService;
         }
 
         [HttpGet]
@@ -49,6 +52,8 @@ namespace CRMDeveloper.Controllers
             ViewBag.Subtypes = _financeService.GetFSubTypes();
             ViewBag.Projects = _projectService.GetProjectList();
             ViewBag.ProjectTypes = _projectService.GetProjectTypes();
+            ViewBag.Tasks = _taskService.GetTaskList();
+            ViewBag.TaskTypes = _taskService.GetTaskTypes();
             var user = _userService.GetUserById(id);
             return View(user);
         }

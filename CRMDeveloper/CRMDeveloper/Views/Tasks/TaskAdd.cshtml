@@ -53,11 +53,11 @@
     IEnumerable<SelectListItem> SelectListUsers = null;
     if (ViewBag.Users != null)
     {
-        var UserList = (ViewBag.Users as List<CRMCore.Objects.ObjUser>);
-        SelectListUsers = UserList.Select(x => new SelectListItem()
+        var users = (ViewBag.Users as List<CRMCore.Objects.ObjUser>);
+        SelectListUsers = users.Select(x => new SelectListItem()
         {
             Value = x.Id.ToString(),
-            Text = x.Fio,
+            Text = x.Fio
         });
     }
 }
@@ -69,10 +69,10 @@
                 <a href="/Home">Главная</a>
             </li>
             <li>
-                <a href="/Projects">Задачи</a>
+                <a href="/Tasks">Задачи</a>
             </li>
             <li>
-                <a href="/Projects/ProjectAdd"><strong>Новая задача</strong></a>
+                <a href="/Tasks/TaskAdd"><strong>Новая задача</strong></a>
             </li>
         </ol>
     </div>
@@ -97,11 +97,11 @@
             <div class="ibox-content">
                 <form method="post" class="form-horizontal" id="EntityForm">
                     <input type="hidden" asp-for="Id" />
-                    <input type="hidden" asp-for="RootType" value="2" />
+                    <input type="hidden" asp-for="RootType" value="0" />
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Исполнитель</label>
                         <div class="col-sm-9">
-                            <select class="form-control" asp-for="RootId" asp-items="SelectListUsers"></select>
+                            <select class="form-control" asp-for="RootId" asp-items="SelectListManagers"></select>
                         </div>
                     </div>
                     <div class="form-group">

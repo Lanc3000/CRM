@@ -19,10 +19,6 @@ namespace CRMCore.Objects
         public int StatusId { get; set; }
 
         public byte CompeteProcent { get; set; }
-        public decimal Cost { get; set; }
-        public CurrencyType Currency { get; set; }
-
-        public decimal Residue { get; set; }
 
         public DateTime DeadLine { get; set; }
 

@@ -73,15 +73,12 @@ namespace CRMCore.Services.Impl
                 StatusId = x.Status.Id,
                 StatusName = x.Status.Name,
 
-                CompeteProcent = x.CompeteProcent,
-                Cost = x.Cost,
-                Currency = x.Currency,
+                CompeteProcent = x.CompeteProcent,          
                 DeadLine = x.DeadLine,
                 TaskTypeName = x.TaskType.Name,
                 TaskTypeId = x.TaskTypeId,
                 UserId = x.UserId,
                 UserFio = x.User?.Fio,
-                Residue = x.Residue,
                 Participants = _participantRepository.AllFull()
                .Where(particapant => particapant.RootType == RootTypes.Project && particapant.RootId == x.Id)
                .Select(participant => new ObjParticipant()
@@ -143,13 +140,10 @@ namespace CRMCore.Services.Impl
                     StatusName = x.Status.Name,
 
                     CompeteProcent = x.CompeteProcent,
-                    Cost = x.Cost,
-                    Currency = x.Currency,
                     DeadLine = x.DeadLine,
                     TaskTypeName = x.TaskType.Name,
                     TaskTypeId = x.TaskTypeId,
                     UserId = x.UserId,
-                    Residue = x.Residue,
                     Participants = _participantRepository.AllFull()
                     .Where(particapant => particapant.RootType == RootTypes.Project && particapant.RootId == x.Id)
                     .Select(participant => new ObjParticipant()
@@ -187,18 +181,17 @@ namespace CRMCore.Services.Impl
             try
             {
                 var task = Map(obj);
-                task.Residue = task.Cost;
                 _taskRepository.Insert(task);
                 _taskRepository.SaveChanges();
 
-                //Добавить проверку на статус
-                if (obj.RootType == RootTypes.Client)
-                {
-                    var client = _clientRepository.Get(obj.RootId);
-                    client.Credit += obj.Cost * CurrencyConverter.ConvertValute(obj.Currency, CurrencyType.Rub);
-                    _clientRepository.Update(client);
-                    _clientRepository.SaveChanges();
-                }
+                
+                //if (obj.RootType == RootTypes.Client)
+                //{
+                //    var client = _clientRepository.Get(obj.RootId);
+                //    client.Credit += obj.Cost * CurrencyConverter.ConvertValute(obj.Currency, CurrencyType.Rub);
+                //    _clientRepository.Update(client);
+                //    _clientRepository.SaveChanges();
+                //}
 
                 return ServiceResult.SuccessResult(task.Id);
             }
@@ -218,14 +211,14 @@ namespace CRMCore.Services.Impl
                 UpdateMap(task, obj);
                 _taskRepository.Update(task);
                 _taskRepository.SaveChanges();
-                if (obj.RootType == RootTypes.Client)
-                {
-                    var client = _clientRepository.Get(obj.RootId);
-                    client.Credit += (obj.Cost * CurrencyConverter.ConvertValute(obj.Currency, CurrencyType.Rub)) -
-                        (task.Cost * CurrencyConverter.ConvertValute(task.Currency, CurrencyType.Rub));
-                    _clientRepository.Update(client);
-                    _clientRepository.SaveChanges();
-                }
+                //if (obj.RootType == RootTypes.Client)
+                //{
+                //    var client = _clientRepository.Get(obj.RootId);
+                //    client.Credit += (obj.Cost * CurrencyConverter.ConvertValute(obj.Currency, CurrencyType.Rub)) -
+                //        (task.Cost * CurrencyConverter.ConvertValute(task.Currency, CurrencyType.Rub));
+                //    _clientRepository.Update(client);
+                //    _clientRepository.SaveChanges();
+                //}
                 return ServiceResult.SuccessResult(obj.Id);
             }
             catch (Exception ex)
@@ -241,11 +234,11 @@ namespace CRMCore.Services.Impl
             {
                 var task = _taskRepository.Get(id);
 
-                if (task.RootType == RootTypes.Client)
-                {
-                    var client = _clientRepository.Get(task.RootId);
-                    client.Credit -= task.Residue * CurrencyConverter.ConvertValute(task.Currency, CurrencyType.Rub);
-                }
+                //if (task.RootType == RootTypes.Client)
+                //{
+                //    var client = _clientRepository.Get(task.RootId);
+                //    client.Credit -= task.Residue * CurrencyConverter.ConvertValute(task.Currency, CurrencyType.Rub);
+                //}
                 _taskRepository.Delete(id);
                 _taskRepository.SaveChanges();
 
@@ -321,13 +314,10 @@ namespace CRMCore.Services.Impl
                 StatusName = task.Status.Name,
 
                 CompeteProcent = task.CompeteProcent,
-                Cost = task.Cost,
-                Currency = task.Currency,
                 DeadLine = task.DeadLine,
                 TaskTypeName = task.TaskType.Name,
                 TaskTypeId = task.TaskTypeId,
                 UserId = task.UserId,
-                Residue = task.Residue,
                 RootName = _rootTypesService.GetRootName(task.RootType, task.RootId),
                 RootUrl = _rootTypesService.GetRootUrl(task.RootType, task.RootId)
 
@@ -346,12 +336,9 @@ namespace CRMCore.Services.Impl
                 StatusId = obj.StatusId,
 
                 CompeteProcent = obj.CompeteProcent,
-                Cost = obj.Cost,
-                Currency = obj.Currency,
                 DeadLine = obj.DeadLine,
                 TaskTypeId = obj.TaskTypeId,
                 UserId = obj.UserId,
-                Residue = obj.Residue,
             };
         }
 
@@ -361,11 +348,8 @@ namespace CRMCore.Services.Impl
             task.Description = obj.Description;
             task.StatusId = obj.StatusId;
             task.CompeteProcent = obj.CompeteProcent;
-            task.Cost = obj.Cost;
-            task.Currency = obj.Currency;
             task.DeadLine = obj.DeadLine;
             task.TaskTypeId = obj.TaskTypeId;
-            task.Residue = obj.Residue;
         }
 
         private ObjTaskType Map(TaskType model)
