@@ -184,7 +184,7 @@ namespace CRMCore.Services.Impl
                 _taskRepository.Insert(task);
                 _taskRepository.SaveChanges();
 
-                
+
                 //if (obj.RootType == RootTypes.Client)
                 //{
                 //    var client = _clientRepository.Get(obj.RootId);
@@ -192,7 +192,7 @@ namespace CRMCore.Services.Impl
                 //    _clientRepository.Update(client);
                 //    _clientRepository.SaveChanges();
                 //}
-
+                
                 return ServiceResult.SuccessResult(task.Id);
             }
             catch (Exception ex)
